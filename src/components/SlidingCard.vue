@@ -18,7 +18,7 @@ export default {
     },
     computed: {
         title: function() {
-            return this.post.title.replace(/\[.{1,10}\]|\s/g,'');
+            return this.post.title;
         }
     },
     methods: {
@@ -41,7 +41,7 @@ export default {
                 },2000)
             } else {
                 clearInterval(this.itv);
-                this.idx = 0;
+                // this.idx = 0;
             }
         }
     }

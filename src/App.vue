@@ -2,8 +2,8 @@
   <div id="app">
     <div id="nav">
       <router-link to="/">首页</router-link> |
-      <router-link to="/dgy">自拍</router-link> |
-      <router-link to="/xsd">寫真</router-link>
+      <router-link to="/xsd">寫真</router-link> |
+      <router-link to="/dgy">自拍</router-link>
     </div>
     <router-view/>
   </div>

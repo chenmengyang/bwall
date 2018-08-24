@@ -17,5 +17,8 @@ div.cardbox {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    > div {
+        width: 100%;
+    }
 }
 </style>

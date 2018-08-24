@@ -115,7 +115,11 @@ const queryFirestore = async (collection, document, limit) => {
             let result = [];
             querySnapshot.forEach((doc) => {
                 // result[doc.id] = doc.data();
-                result.push(doc.data());
+                let obj = doc.data();
+                result.push({
+                    ...obj,
+                    title: obj.title.replace(/\[.{1,10}\]|\s/g,'')
+                });
             })
             return result;
         } else if ( collection && document ) {
