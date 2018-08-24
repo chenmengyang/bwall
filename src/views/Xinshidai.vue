@@ -1,9 +1,9 @@
 <template>
-  <PostList v-bind:fetchMore="fetchMore" />
+    <PostList v-bind:fetchMore="()=>fetchMorePosts({ postType: 'cl-xsd', amount: 10 })" v-bind:posts="posts" />
 </template>
 
 <script>
-import { getAllPostsFromXinshidai, } from '../api/firebaseApi.js';
+import { mapActions, mapState, } from "vuex";
 import PostList from "../components/PostList";
 
 export default {
@@ -12,7 +12,23 @@ export default {
       PostList
   },
   methods: {
-      fetchMore: getAllPostsFromXinshidai,
+    ...mapActions([
+        'fetchMorePosts'
+    ])
   },
+  computed: {
+    ...mapState({
+        posts: state => state.cl['cl-xsd'].data,
+        counter: state => state.cl['cl-xsd'].counter,
+    })
+  },
+  mounted: async function() {
+      if (this.counter === 0) {
+          await this.fetchMorePosts({
+              postType: 'cl-xsd',
+              amount: 10
+          });
+      }
+  }
 }
 </script>

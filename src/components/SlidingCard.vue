@@ -38,7 +38,7 @@ export default {
                     } else {
                         this.idx = 0;
                     }
-                },1500)
+                },2000)
             } else {
                 clearInterval(this.itv);
                 this.idx = 0;

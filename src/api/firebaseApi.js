@@ -14,24 +14,32 @@ const settings = { timestampsInSnapshots: true };
 db.settings(settings);
 
 // ...
-export const getAllPostsFromDagaiyu = async (limit) => {
+export const getClPosts = async (postType, amount) => {
     try {
-        let res = await queryFirestore('cl-dgy', null, limit);
+        let res = await queryFirestore(postType, null, amount);
         return res;
     } catch (err) {
         console.log(err);
     }
 }
+// export const getPostsFromDagaiyu = async (limit) => {
+//     try {
+//         let res = await queryFirestore('cl-dgy', null, limit);
+//         return res;
+//     } catch (err) {
+//         console.log(err);
+//     }
+// }
 
-// ...
-export const getAllPostsFromXinshidai = async (limit) => {
-    try {
-        let res = await queryFirestore('cl-xsd', null, limit);
-        return res;
-    } catch (err) {
-        console.log(err);
-    }
-}
+// // ...
+// export const getPostsFromXinshidai = async (limit) => {
+//     try {
+//         let res = await queryFirestore('cl-xsd', null, limit);
+//         return res;
+//     } catch (err) {
+//         console.log(err);
+//     }
+// }
 
 /**
  * login to admin app with email and password
@@ -69,11 +77,11 @@ export const currentUser = firebase.auth().currentUser;
 // auth state listener
 export const onAuthStateChanged = (user) => firebase.auth().onAuthStateChanged(user);
 
-// get all cl-posts
-export const getClPosts = async () => {
-    let res = await queryFirestore('cl-dgy');
-    return res;
-}
+// // get all cl-posts
+// export const getClPosts = async () => {
+//     let res = await queryFirestore('cl-dgy');
+//     return res;
+// }
 
 // Create an exception class UserException for throwing
 class UserException {
@@ -102,7 +110,7 @@ const queryFirestore = async (collection, document, limit) => {
             throw new Error('collection name can`t be empty');
         } else if ( collection && !document ) {
             // query all documents in a collection
-            const ref = db.collection(collection).orderBy('postDate', 'desc').limit(limit);
+            const ref = db.collection(collection).orderBy('scrapeDate','desc').orderBy('postDate','desc').limit(limit);
             const querySnapshot = await ref.get();
             let result = [];
             querySnapshot.forEach((doc) => {
